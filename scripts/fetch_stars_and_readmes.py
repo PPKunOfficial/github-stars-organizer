@@ -5,6 +5,7 @@ import base64
 import json
 import os
 import time
+from http.client import IncompleteRead
 from pathlib import Path
 from typing import Dict, List
 from urllib.error import HTTPError, URLError
@@ -46,6 +47,11 @@ def get_json(path: str, tk: str, retries: int = 4):
                 continue
             raise RuntimeError(f"GET {path} failed {e.code}: {body}") from e
         except URLError as e:
+            if i < retries:
+                time.sleep(i * 2)
+                continue
+            raise RuntimeError(f"GET {path} failed: {e}") from e
+        except IncompleteRead as e:
             if i < retries:
                 time.sleep(i * 2)
                 continue
