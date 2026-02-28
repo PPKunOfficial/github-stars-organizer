@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Stars Organizer"
+  short_description: "分类审阅并同步 GitHub Star 列表到 Lists"
+  default_prompt: "Use $github-stars-organizer to classify my starred repos, export review CSV, and sync to GitHub Lists when I confirm."
